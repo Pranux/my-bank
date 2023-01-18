@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Settings
+{% endblock %}
+
+{% block main %}
+<form action="/settings" method="post">
+    <div class="back-table">
+        <table class="table">
+            {% for row in database %}
+            <tbody>
+                <tr>
+                    <!--Changing users username-->
+                    <button id="by-username-btn" class="btn btn-primary btn-settings" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+                        Username
+                    </button>
+                    <div class="collapse" id="collapseExample1">
+                        <div id="by-username card-body">
+                            <br>
+                            <p class="underline">Current username: {{row["username"]}}</p>
+                                <label class="text" for="username">New username: </label>
+                                <input id="settings-input-1" type="text" id="username-input" name="username-input">
+                            <br>
+                                <label class="text" for="password">Password: </label>
+                                <input id="settings-input-2" type="password" id="password-username" name="password-username">
+                            <br>
+                                <label class="text" for="password">Confirm password: </label>
+                                <input id="settings-input-3" type="password" id="password-username-2" name="password-username-2">
+                            <br>
+                            <input type="submit" id="submit-username">
+                        </div>
+                    </div>
+                </tr>
+                <tr>
+                    <!--Changing users email-->
+                    <button id="by-email-btn" class="btn btn-primary btn-settings" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                        Email
+                    </button>
+                    <div class="collapse" id="collapseExample2">
+                        <div id="by-email card-body">
+                            <br>
+                            <p class="underline">Current email: {{row["email"]}}</p>
+                                <label class="text" for="email">New email: </label>
+                                <input id="settings-input-4" type="text" id="email-input" name="email-input">
+                            <br>
+                                <label class="text" for="password">Password: </label>
+                                <input id="settings-input-5" type="password" id="password-email" name="password-email">
+                            <br>
+                                <label class="text" for="password">Confirm password: </label>
+                                <input id="settings-input-6" type="password" id="password-email-2" name="password-email-2">
+                            <br>
+                            <input type="submit" id="submit-email">
+                        </div>
+                    </div>
+                </tr>
+                <tr>
+                    <!--Changing users password-->
+                    <button  id="by-password-btn" class="btn btn-primary btn-settings" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+                        Password
+                    </button>
+                    <div class="collapse" id="collapseExample3">
+                        <div id="by-password card-body">
+                            <br>
+                                <label class="text" for="password">Enter existing password: </label>
+                                <input id="settings-input-7" type="password" id="old-password-input" name="old-password-input">
+                            <br>
+                                <label class="text" for="password">New Password: </label>
+                                <input id="settings-input-8" type="password" id="password-password" name="password-password">
+                            <br>
+                                <label class="text" for="password">Confirm password: </label>
+                                <input id="settings-input-9" type="password" id="password-password-2" name="password-password-2">
+                            <br>
+                            <input type="submit" id="submit-password">
+                        </div>
+                    </div>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</form>
+
+<script>
+    /*Closing other divs if one is opened*/
+    document.getElementById("by-username-btn").addEventListener("click", () => {
+            document.getElementById("collapseExample2").className = "collapse";
+            document.getElementById("collapseExample3").className = "collapse";
+        });
+    document.getElementById("by-email-btn").addEventListener("click", () => {
+        document.getElementById("collapseExample1").className = "collapse";
+        document.getElementById("collapseExample3").className = "collapse";
+    });
+    document.getElementById("by-password-btn").addEventListener("click", () => {
+            document.getElementById("collapseExample1").className = "collapse";
+            document.getElementById("collapseExample2").className = "collapse";
+        });
+</script>
+{% endblock %}
+
+{% block footer %}
+    {{super()}}
+{% endblock %}

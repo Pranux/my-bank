@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+<!--Shows user info about his profile-->
+<div class="back-table">
+    <table class="table">
+        {% for row in database %}
+            <tr id="profile-div">
+                <td>Username: </td>
+                <td>
+                    <!--Links user to other route where he can change his username-->
+                    {{row["username"]}}
+                    <a href="/settings">Change username</button>
+                </td>
+            </tr>
+            <tr id="profile-div">
+                <td>Code: </td>
+                <td>{{row["code"]}}</td>
+            </tr>
+            <tr id="profile-div">
+                <td>Email: </td>
+                <td>
+                    <!--Links user to other route where he can change his email-->
+                    {{row["email"]}}
+                    <a href="/settings">Change email</a>
+                </td>
+            </tr>
+            <tr id="profile-div">
+                <td>Cash: </td>
+                <td>${{row["cash"]}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {{super()}}
+{% endblock %}

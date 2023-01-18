@@ -1,0 +1,227 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+<!--Filtering criteria-->
+<div class="og-date">
+    <ul class="nav nav-back">
+        <li>
+            <a class="nav-link order-by"><strong>Order by: </strong></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link sorting" id="sort-username">Username</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link sorting" id="sort-reason">Reason</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link sorting" id="sort-cash">Cash</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link sorting" id="sort-date">Date</a>
+        </li>
+    </ul>
+    <!--Showing user table with all data-->
+    <ul class="original-date">
+        <a href="/history">All Data</a>
+    </ul>
+</div>
+
+<form action="/" method="post" id="form">
+    <!--Filtering by name-->
+    <div id="by-username" hidden>
+        <label for="username">Receiver name:</label>
+        <input type="text" id="by-username-input" name="by-username-input">
+        <br>
+        <input type="submit" id="order-by-submit" onclick="actionChange()">
+    </div>
+
+    <!--Filtering by reason-->
+    <div id="by-reason" hidden>
+        <label for="reason">Reason</label><br>
+        <select id="reason" name="reason">
+            <option disabled selected>-</option>
+            <option value="clothes">Clothes</option>
+            <option value="debt">Debt</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="food">Food</option>
+            <option value="housing">Housing</option>
+            <option value="insurance">Insurance</option>
+            <option value="medicine">Medicine</option>
+            <option value="municipal_taxes">Municipal Taxes</option>
+            <option value="salary">Salary</option>
+            <option value="transport">Transport</option>
+            <option value="vehicle">Vehicle</option>
+            <option value="other">OTHER</option>
+        </select>
+        <br>
+        <input type="submit" id="order-by-submit" onclick="actionChange()">
+    </div>
+
+    <!--Filtering by cash-->
+    <div id="by-cash" hidden>
+        <label for="start">From:</label>
+        <input type="number" id="by-cash-start" name="by-cash-start" min="0.01" step="any">
+        <br>
+        <label for="end">To:</label>
+        <input type="number" id="by-cash-end" name="by-cash-end" min="0.01" step="any">
+        <br>
+        <input type="submit" id="order-by-submit" onclick="actionChange()">
+    </div>
+
+    <!--Filtering by date-->
+    <div id="by-date" hidden>
+        <label for="start">From:</label>
+        <input type="date" id="by-date-start" name="by-date-start">
+        <br>
+        <label for="end">To:</label>
+        <input type="date" id="by-date-end" name="by-date-end">
+        <br>
+        <input type="submit" id="order-by-submit" onclick="actionChange()">
+    </div>
+    <var id="how" hidden></var>
+</form>
+
+<!--Transactions history-->
+<div class="back-table">
+    <table class="table">
+        <var id="current_user_id" hidden>{{current_user_id}}</var>
+        <thead>
+            <th class="text-start" id="receiver-transmitter-id">Receiver/Transmitter ID</th>
+            <th class="text-start" id="receiver-id" hidden>Receiver ID</th>
+            <th class="text-start" id="transmitter-id" hidden>Transmitter ID</th>
+
+            <th class="text-start" id="receiver-transmitter-name">Receiver/Transmitter name</th>
+            <th class="text-start" id="receiver-name" hidden>Receiver name</th>
+            <th class="text-start" id="transmitter-name" hidden>Transmitter name</th>
+
+            <th class="text-start" id="reason">Reason</th>
+            <th class="text-end" id="total-price">Transfer amount</th>
+            <th class="text-end" id="date">Date</th>
+        </thead>
+        <tbody>
+            {% for row in database %}
+                <tr>
+                    {% if (current_user_id == row["user_id"]) %}
+                        <td class="text-start" id="receiver-id-data">{{row["receiver_id"]}}</td>
+                    {% elif (current_user_id == row["receiver_id"]) %}
+                        <td class="text-start" id="user-id-data">{{row["user_id"]}}</td>
+                    {% else %}
+                        <td class="text-start" id="important-id-data">{{row["important_id"]}}</td>
+                    {% endif %}
+
+                    {% if (current_user_id == row["user_id"]) %}
+                        <td class="text-start" id="receiver-name-data">{{row["r_username"]}}</td>
+                    {% elif (current_user_id == row["receiver_id"]) %}
+                        <td class="text-start" id="transmitter-name-data">{{row["u_username"]}}</td>
+                    {% else %}
+                        <td class="text-start" id="important-name-data">{{row["important_username"]}}</td>
+                    {% endif %}
+
+                    <td class="text-start" id="reason-index">{{row["reason"]}}</td>
+
+                    {% if (current_user_id == row["user_id_imp"]) %}
+                        <td class="text-end red" id="total-price-index">-${{row["money"]}}</td>
+                    {% elif (current_user_id == row["receiver_id_imp"]) %}
+                        <td class="text-end green" id="total-price-index">+${{row["money"]}}</td>
+                    {% else %}
+                        <td class="text-end" id="total-price-index">${{row["money"]}}</td>
+                    {% endif %}
+
+                    <td class="text-end" id="date" name="date-name">{{row["date"]}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    let how = document.URL.slice(-5);
+    /*finds correct route*/
+    function actionChange() {
+        if(how == "by-me") {
+            document.getElementById("form").action = "/history/by-me"
+        }
+        else if(how == "to-me") {
+            document.getElementById("form").action = "/history/to-me"
+        }
+        else {
+            document.getElementById("form").action = "/history"
+        }
+    }
+    /*Closes other filtering criterias if another is opened*/
+    if(how == "by-me") {
+        document.getElementById("transmitter-id").hidden = true;
+        document.getElementById("receiver-transmitter-id").hidden = true;
+        document.getElementById("receiver-id").hidden = false;
+
+        document.getElementById("transmitter-name").hidden = true;
+        document.getElementById("receiver-transmitter-name").hidden = true;
+        document.getElementById("receiver-name").hidden = false;
+    }
+    else if(how == "to-me") {
+        document.getElementById("transmitter-id").hidden = false;
+        document.getElementById("receiver-transmitter-id").hidden = true;
+        document.getElementById("receiver-id").hidden = true;
+
+        document.getElementById("transmitter-name").hidden = false;
+        document.getElementById("receiver-transmitter-name").hidden = true;
+        document.getElementById("receiver-name").hidden = true;
+    }
+
+    document.getElementById("sort-date").addEventListener("click", () => {
+        if(document.getElementById("by-date").hidden == true) {
+            document.getElementById("by-date").hidden = false;
+            document.getElementById("by-cash").hidden = true;
+            document.getElementById("by-reason").hidden = true;
+            document.getElementById("by-username").hidden = true;
+        }
+        else {
+            document.getElementById("by-date").hidden = true;
+        }
+    }, false);
+
+    document.getElementById("sort-cash").addEventListener("click", () => {
+        if(document.getElementById("by-cash").hidden == true) {
+            document.getElementById("by-date").hidden = true;
+            document.getElementById("by-cash").hidden = false;
+            document.getElementById("by-reason").hidden = true;
+            document.getElementById("by-username").hidden = true;
+        }
+        else {
+            document.getElementById("by-cash").hidden = true;
+        }
+    }, false);
+
+    document.getElementById("sort-reason").addEventListener("click", () => {
+        if(document.getElementById("by-reason").hidden == true) {
+            document.getElementById("by-date").hidden = true;
+            document.getElementById("by-cash").hidden = true;
+            document.getElementById("by-reason").hidden = false;
+            document.getElementById("by-username").hidden = true;
+        }
+        else {
+            document.getElementById("by-reason").hidden = true;
+        }
+    }, false);
+
+    document.getElementById("sort-username").addEventListener("click", () => {
+        if(document.getElementById("by-username").hidden == true) {
+            document.getElementById("by-date").hidden = true;
+            document.getElementById("by-cash").hidden = true;
+            document.getElementById("by-reason").hidden = true;
+            document.getElementById("by-username").hidden = false;
+        }
+        else {
+            document.getElementById("by-username").hidden = true;
+        }
+    }, false);
+</script>
+{% endblock %}
+
+{% block footer %}
+    {{super()}}
+{% endblock %}

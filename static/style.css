@@ -1,0 +1,216 @@
+.green {
+    color: green;
+}
+.red {
+    color: red;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+nav .navbar-brand {
+    font-size: xx-large;
+}
+
+nav .navbar-brand .blue {
+    color: #537fbe;
+}
+nav .navbar-brand .red {
+    color: #ea433b;
+}
+nav .navbar-brand .yellow {
+    color: #f5b82e;
+}
+nav .navbar-brand .green {
+    color: #2e944b;
+}
+.nav-link .nav-link-color {
+    color: #ffffff;
+}
+
+.navbar1 {
+    background-color: #7dcff5;
+}
+.navbar2 {
+    font-size: 18px;
+    margin-bottom: auto;
+    white-space: nowrap;
+}
+.nav2-margin {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.nav-item-margin {
+    padding-right: 1em;
+}
+.nav-back {
+    width: 35%;
+    margin-left: 20%;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    background-color: #dedede;
+    display: flex;
+}
+
+input[type=text], input[type=number], input[type=password], select {
+    width: 75%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 75%;
+    background-color: #7dcff5;
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #57c1f2;
+}
+
+#send-money-div-back {
+    width: 50%;
+    border-radius: 25px;
+    background-color: #dedede;
+    padding: 15px;
+    margin:0 auto;
+}
+#send-money-div {
+    width: 100%;
+    border-radius: 25px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin:0 auto;
+}
+
+.back-table {
+    width: 60%;
+    border-radius: 25px;
+    background-color: #dedede;
+    padding: 15px;
+    margin:0 auto;
+}
+.table {
+    width: 100%;
+    border-radius: 25px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin:0 auto;
+}
+
+.btn-settings {
+    width: 100%;
+    color: black;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    border-color: #dedede;
+    padding: 20px;
+}
+
+.btn-settings:hover,  .btn-settings:focus{
+    background-color: #7dcff5;
+}
+
+.text {
+    padding: 14px 5px;
+    margin: 8px 0;
+}
+
+#settings-input-1, #settings-input-2, #settings-input-3, #settings-input-4, #settings-input-5,
+#settings-input-6, #settings-input-7, #settings-input-8, #settings-input-9 {
+    float: right;
+    width: 70%;
+}
+
+#receiver-id, #receiver-id-data, #reason, #user-id, #user-id-data #important-id,
+#important-id-data, #transmitter-id, #transmitter-id-data {
+    padding-left: 2%;
+}
+ #date {
+    padding-right: 2%;
+}
+
+.og-date {
+    display: flex;
+}
+.original-date {
+    padding-top: 8px;
+    padding-left: 20px;
+    color: #0757d9;
+    cursor: pointer;
+}
+
+#sort-username, #sort-reason, #sort-cash, #sort-date {
+    color: #0757d9;
+    cursor: pointer;
+}
+.order-by {
+    color: #4d4d4d;
+}
+#order-by-submit {
+    width: 10%;
+    padding: 2px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+}
+
+#by-date-start {
+    margin-bottom: 8px;
+}
+#by-cash-start, #by-cash-end {
+    width: 10%;
+    padding: 5px 10px;
+}
+#by-date-end, #by-cash-end {
+    margin-left: 20px;
+}
+
+.button-primary {
+    width: 100%;
+    border-radius: 25px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin:0 auto;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #7dcff5;
+    color: #343a40;
+    text-align: center;
+ }
+
+#contact-me {
+    padding: 10px 10px;
+}
+
+/*removes arrows/spinners from number input*/
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    appearance: none;
+    -moz-appearance: textfield;
+}

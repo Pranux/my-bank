@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Send Money
+{% endblock %}
+
+{% block main %}
+<!--Sends money to other user-->
+<div id="send-money-div-back">
+    <div id="send-money-div">
+        <form action="/send_money" method="post">
+            <label for="name">Full name of receiver</label><br>
+            <input type="text" id="name" name="receivername" placeholder="Name of receiver..."><br>
+
+            <!--Every user has a code going from 10000 to 99999-->
+            <label for="rcode">Receiver code</label><br>
+            <input type="number" id="rcode" name="receivercode" placeholder="Code of receiver..." min="10000" max="99999"><br>
+
+            <label for="money">Sum of money</label><br>
+            <input type="number" id="money" name="money" placeholder="Sum of money you want to sent..." min="0.01" max="{{user_money}}" step="0.01"><br>
+
+            <label for="reason">Reason</label><br>
+            <select id="reason" name="reason">
+                <option disabled selected>-</option>
+                <option value="clothes">Clothes</option>
+                <option value="debt">Debt</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="food">Food</option>
+                <option value="housing">Housing</option>
+                <option value="insurance">Insurance</option>
+                <option value="medicine">Medicine</option>
+                <option value="municipal_taxes">Municipal Taxes</option>
+                <option value="salary">Salary</option>
+                <option value="transport">Transport</option>
+                <option value="vehicle">Vehicle</option>
+                <option value="other">OTHER</option>
+            </select>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {{super()}}
+{% endblock %}
